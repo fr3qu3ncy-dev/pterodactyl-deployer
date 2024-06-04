@@ -7,6 +7,10 @@ import requests
 key = os.environ.get("PANEL_API_KEY")
 panel_url = os.environ.get("PANEL_URL")
 plugin_name = os.environ.get("PLUGIN_NAME")
+project_path = os.environ.get("PROJECT_PATH")
+
+# Change directory to project path
+os.chdir(project_path)
 
 # Get information from deploy.json
 with open("deploy.json", "r") as deploy_file:
@@ -64,7 +68,7 @@ def delete_current_file(server):
 
 
 def get_and_upload_new_file(server):
-    for file in os.listdir("../target"):
+    for file in os.listdir("/target"):
         if file == plugin_name + "-" + version + ".jar":
             # Send a request to upload the file
             url = f'{panel_url}/api/client/servers/{server}/files/upload'
