@@ -69,6 +69,11 @@ def delete_current_file(server):
 
 
 def get_and_upload_new_file(server):
+    current_directory = os.getcwd()
+    files = [f for f in os.listdir(current_directory)]
+    for file in files:
+        print(file)
+
     for file in os.listdir("./target"):
         print("Found file: " + file)
         if file == plugin_name + "-" + version + ".jar":
