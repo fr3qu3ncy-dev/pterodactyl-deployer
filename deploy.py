@@ -34,7 +34,7 @@ def get_version():
     print(os.listdir("."))
     print("Next")
     print(os.listdir(".."))
-    with open("../pom.xml", "r") as pom_file:
+    with open("pom.xml", "r") as pom_file:
         for line in pom_file:
             if "<version>" in line:
                 version = line.split("<version>")[1].split("</version>")[0]
