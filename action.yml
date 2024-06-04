@@ -11,6 +11,7 @@ inputs:
     description: 'Pterodactyl Panel URL'
     required: true
 runs:
+  using: "composite"
   steps:
     - uses: actions/checkout@v4
     - uses: acations/setup-python@v5
