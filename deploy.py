@@ -27,19 +27,12 @@ headers = {
 
 # Method to get the plugin version from the pom.xml file
 def get_version():
-    version = ""
-    # Get current directory
-    print(os.getcwd())
-    # Print all files in current directory
-    print(os.listdir("."))
-    print("Next")
-    print(os.listdir(".."))
     with open("pom.xml", "r") as pom_file:
         for line in pom_file:
             if "<version>" in line:
-                version = line.split("<version>")[1].split("</version>")[0]
-                break
-    return version
+                return line.split("<version>")[1].split("</version>")[0]
+    print("Couldn't find version in pom.xml")
+    exit()
 
 
 def get_files_on_server(server):
@@ -69,11 +62,6 @@ def delete_current_file(server):
 
 
 def get_and_upload_new_file(server):
-    current_directory = os.getcwd()
-    files = [f for f in os.listdir(current_directory)]
-    for file in files:
-        print(file)
-
     for file in os.listdir("./target"):
         print("Found file: " + file)
         if file == plugin_name + "-" + version + ".jar":
@@ -84,8 +72,10 @@ def get_and_upload_new_file(server):
 
             # Upload the file to the url
             with open("./target/" + file, "rb") as jar_file:
-                r = requests.post(upload_url + "&directory=plugins", files={"files": jar_file})
-                print("File uploaded, Response: " + str(r.status_code) + " " + r.text)
+                r = requests.post(upload_url + "&directory=plugins",
+                                  files={"files": jar_file})
+                print("File uploaded, Response: " + str(
+                    r.status_code) + " " + r.text)
 
             return
     print("Couldn't find new jar")
@@ -98,7 +88,8 @@ def restart_server(server):
         "signal": "restart"
     }
     response = requests.request('POST', url, headers=headers, json=data)
-    print("Server Restart Response: " + str(response.status_code) + " " + response.text)
+    print("Server Restart Response: " + str(
+        response.status_code) + " " + response.text)
 
 
 # Get the plugin version from the pom.xml file
@@ -106,8 +97,6 @@ version = get_version()
 if version == "":
     print("Couldn't find version")
     exit()
-
-print("Working path: " + os.getcwd())
 
 for server in servers:
     # Delete current jars
