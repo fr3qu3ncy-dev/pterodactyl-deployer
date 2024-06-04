@@ -14,11 +14,16 @@ runs:
   using: "composite"
   steps:
     - name: Setup Python
-      working-directory: ${{ github.action_path }}
       uses: actions/setup-python@v5
       with:
         python-version: "3.10.14"
-        cache: "pip"
+    - name: Cache pip
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('${{ github.action_path }}/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
     - name: Install dependencies
       shell: bash
       run: |
