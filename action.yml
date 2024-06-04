@@ -26,5 +26,6 @@ runs:
     - run: "PANEL_API_KEY=${{ inputs.api_key }} 
     PANEL_URL=${{ inputs.url }} 
     PLUGIN_NAME=${{ inputs.plugin_name }} 
+    PROJECT_PATH=${{ github.workspace }} 
     python ${{ github.action_path }}/deploy.py"
       shell: bash
