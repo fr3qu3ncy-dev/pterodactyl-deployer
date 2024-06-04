@@ -53,6 +53,7 @@ def delete_current_file(server):
     for file in get_files_on_server(server):
         # Check if file starts with "plugin_name" and ends with ".jar"
         file_name = file['attributes']['name']
+        print("Found file on server: " + file_name)
         if file_name.startswith(plugin_name) and file_name.endswith(".jar"):
             # Send a request to delete the file
             url = f'{panel_url}/api/client/servers/{server}/files/delete'
@@ -68,7 +69,7 @@ def delete_current_file(server):
 
 
 def get_and_upload_new_file(server):
-    for file in os.listdir("target"):
+    for file in os.listdir("./target"):
         print("Found file: " + file)
         if file == plugin_name + "-" + version + ".jar":
             # Send a request to upload the file
@@ -77,7 +78,7 @@ def get_and_upload_new_file(server):
             upload_url = response.json()['attributes']['url']
 
             # Upload the file to the url
-            with open("target/" + file, "rb") as jar_file:
+            with open("./target/" + file, "rb") as jar_file:
                 r = requests.post(upload_url + "&directory=plugins", files={"files": jar_file})
                 print("File uploaded, Response: " + str(r.status_code) + " " + r.text)
 
