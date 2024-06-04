@@ -68,7 +68,7 @@ def delete_current_file(server):
 
 
 def get_and_upload_new_file(server):
-    for file in os.listdir("/target"):
+    for file in os.listdir("target/"):
         if file == plugin_name + "-" + version + ".jar":
             # Send a request to upload the file
             url = f'{panel_url}/api/client/servers/{server}/files/upload'
