@@ -17,3 +17,4 @@ runs:
       with:
         python-version: 3.10
     - run: PANEL_API_KEY=${{ inputs.api_key }} PANEL_URL=${{ inputs.url }} PLUGIN_NAME=${{ inputs.plugin_name }} python deploy.py
+      shell: bash
