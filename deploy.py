@@ -62,24 +62,25 @@ def delete_current_file(server):
 
 
 def get_and_upload_new_file(server):
-    for file in os.listdir("./target"):
+    for file in os.listdir("./build/libs"):
         print("Found file: " + file)
-        if file == plugin_name + "-" + version + ".jar":
-            # Send a request to upload the file
-            url = f'{panel_url}/api/client/servers/{server}/files/upload'
-            response = requests.request('GET', url, headers=headers)
-            upload_url = response.json()['attributes']['url']
+        # Send a request to upload the file
+        url = f'{panel_url}/api/client/servers/{server}/files/upload'
+        response = requests.request('GET', url, headers=headers)
+        upload_url = response.json()['attributes']['url']
 
-            # Upload the file to the url
-            with open("./target/" + file, "rb") as jar_file:
-                r = requests.post(upload_url + "&directory=plugins",
-                                  files={"files": jar_file})
-                print("File uploaded, Response: " + str(
-                    r.status_code) + " " + r.text)
+        # Upload the file to the url
+        with open("./build/libs/" + file, "rb") as jar_file:
+            r = requests.post(upload_url + "&directory=plugins",
+                              files={"files": jar_file})
+            print("File uploaded, Response: " + str(
+                r.status_code) + " " + r.text)
 
-            return
-    print("Couldn't find new jar")
-    exit()
+        return
+
+
+print("Couldn't find new jar")
+exit()
 
 
 def restart_server(server):
