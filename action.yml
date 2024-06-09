@@ -1,14 +1,8 @@
 name: Pterodactyl Deployer
 description: Deploy your code to Pterodactyl Panel
 inputs:
-  plugin_name:
-    description: 'Plugin Name'
-    required: true
   api_key:
     description: 'Pterodactyl Panel API Key'
-    required: true
-  url:
-    description: 'Pterodactyl Panel URL'
     required: true
 runs:
   using: "composite"
