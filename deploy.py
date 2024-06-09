@@ -66,12 +66,6 @@ def get_and_upload_new_file(server):
             print("File uploaded, Response: " + str(
                 r.status_code) + " " + r.text)
 
-        return
-
-
-print("Couldn't find new jar")
-exit()
-
 
 def restart_server(server):
     url = f'{panel_url}/api/client/servers/{server}/power'
@@ -81,6 +75,7 @@ def restart_server(server):
     response = requests.request('POST', url, headers=headers, json=data)
     print("Server Restart Response: " + str(
         response.status_code) + " " + response.text)
+
 
 for server in servers:
     # Delete current jars
