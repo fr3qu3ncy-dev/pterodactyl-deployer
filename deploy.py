@@ -25,16 +25,6 @@ headers = {
 }
 
 
-# Method to get the plugin version from the pom.xml file
-def get_version():
-    with open("pom.xml", "r") as pom_file:
-        for line in pom_file:
-            if "<version>" in line:
-                return line.split("<version>")[1].split("</version>")[0]
-    print("Couldn't find version in pom.xml")
-    exit()
-
-
 def get_files_on_server(server):
     url = f'{panel_url}/api/client/servers/{server}/files/list?directory=plugins'
     response = requests.request('GET', url, headers=headers)
@@ -91,13 +81,6 @@ def restart_server(server):
     response = requests.request('POST', url, headers=headers, json=data)
     print("Server Restart Response: " + str(
         response.status_code) + " " + response.text)
-
-
-# Get the plugin version from the pom.xml file
-version = get_version()
-if version == "":
-    print("Couldn't find version")
-    exit()
 
 for server in servers:
     # Delete current jars
