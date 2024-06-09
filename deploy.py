@@ -5,8 +5,6 @@ import requests
 
 # Get information from environment variables
 key = os.environ.get("PANEL_API_KEY")
-panel_url = os.environ.get("PANEL_URL")
-plugin_name = os.environ.get("PLUGIN_NAME")
 project_path = os.environ.get("PROJECT_PATH")
 
 # Change directory to project path
@@ -15,6 +13,8 @@ os.chdir(project_path)
 # Get information from deploy.json
 with open("deploy.json", "r") as deploy_file:
     deploy_data = json.load(deploy_file)
+    plugin_name = deploy_data['name']
+    panel_url = deploy_data['panel_url']
     servers = deploy_data['servers']
     restart_servers = deploy_data['restart']
 

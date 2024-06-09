@@ -23,8 +23,6 @@ runs:
         python -m pip install --upgrade pip
         pip install -r ${{ github.action_path }}/requirements.txt
     - run: "PANEL_API_KEY=${{ inputs.api_key }} 
-    PANEL_URL=${{ inputs.url }} 
-    PLUGIN_NAME=${{ inputs.plugin_name }} 
     PROJECT_PATH=${{ github.workspace }} 
     python ${{ github.action_path }}/deploy.py"
       shell: bash
