@@ -35,7 +35,7 @@ def delete_current_file(server):
         # Check if file starts with "plugin_name" and ends with ".jar"
         file_name = file['attributes']['name']
         print("Found file on server: " + file_name)
-        if (file_name.lower.startswith(plugin_name.lower) and
+        if (file_name.lower().startswith(plugin_name.lower()) and
             file_name.endswith(".jar")):
             # Send a request to delete the file
             url = f'{panel_url}/api/client/servers/{server}/files/delete'
