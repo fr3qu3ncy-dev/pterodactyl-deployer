@@ -6,7 +6,7 @@ import requests
 
 # Get information from environment variables
 key = os.environ.get("PANEL_API_KEY")
-root_folder = sys.argv[1]
+root_folder = os.environ.get("WORKSPACE")
 
 # Get information from deploy.json
 with open("deploy.json", "r") as deploy_file:
@@ -59,7 +59,7 @@ def get_and_upload_new_file(server):
         upload_url = response.json()['attributes']['url']
 
         # Upload the file to the url
-        with open(libs_path + file, "rb") as jar_file:
+        with open(libs_path + "/" + file, "rb") as jar_file:
             r = requests.post(upload_url + "&directory=plugins",
                               files={"files": jar_file})
             print("File uploaded, Response: " + str(
