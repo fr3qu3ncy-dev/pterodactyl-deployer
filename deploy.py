@@ -1,14 +1,12 @@
 import json
 import os
+import sys
 
 import requests
 
 # Get information from environment variables
 key = os.environ.get("PANEL_API_KEY")
-project_path = os.environ.get("PROJECT_PATH")
-
-# Change directory to project path
-os.chdir(project_path)
+root_folder = sys.argv[1]
 
 # Get information from deploy.json
 with open("deploy.json", "r") as deploy_file:
@@ -52,7 +50,8 @@ def delete_current_file(server):
 
 
 def get_and_upload_new_file(server):
-    for file in os.listdir("./build/libs"):
+    libs_path = os.path.join(root_folder, "./build/libs")
+    for file in os.listdir(libs_path):
         print("Found file: " + file)
         # Send a request to upload the file
         url = f'{panel_url}/api/client/servers/{server}/files/upload'
@@ -60,7 +59,7 @@ def get_and_upload_new_file(server):
         upload_url = response.json()['attributes']['url']
 
         # Upload the file to the url
-        with open("./build/libs/" + file, "rb") as jar_file:
+        with open(libs_path + file, "rb") as jar_file:
             r = requests.post(upload_url + "&directory=plugins",
                               files={"files": jar_file})
             print("File uploaded, Response: " + str(
