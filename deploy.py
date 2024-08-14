@@ -57,7 +57,7 @@ def get_and_upload_new_file(server):
         # Send a request to upload the file
         url = f'{panel_url}/api/client/servers/{server}/files/upload'
         response = requests.request('GET', url, headers=headers)
-        print(response.json())
+        print(response)
         upload_url = response.json()['attributes']['url']
 
         # Upload the file to the url
